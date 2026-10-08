@@ -1,0 +1,74 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Test
+        run: |
+          go test ./...
+          go run . --self-test
+
+      - name: Install go-winres
+        run: go install github.com/tc-hib/go-winres@v0.3.3
+
+      - name: Generate Windows resources
+        run: |
+          go-winres simply             --arch amd64,386             --out rsrc             --icon jed_icon.ico             --manifest gui             --product-version 2.0.0.18             --file-version 2.0.0.18             --product-name "JED Simulador"             --file-description "Simulador educacional de empreendedorismo"             --copyright "JED Simulador contributors"
+
+      - name: Build Windows binaries
+        shell: bash
+        run: |
+          mkdir -p dist
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-H windowsgui -s -w"             -o dist/JED_Simulador.exe .
+
+          GOOS=windows GOARCH=386 CGO_ENABLED=0             go build -trimpath -ldflags="-H windowsgui -s -w"             -o dist/JED_Simulador_32bits.exe .
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.diagConsole=true"             -o dist/JED_Simulador_Diagnostico.exe .
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.serverMode=true -s -w"             -o dist/JED_Servidor.exe .
+
+          GOOS=windows GOARCH=386 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.serverMode=true -s -w"             -o dist/JED_Servidor_32bits.exe .
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.forceClassic=true -s -w"             -o dist/JED_Simulador_Classic.exe .
+
+          cp jed_icon.ico dist/
+          cp LEIA-ME.txt dist/
+          cp LEIA-ME-ONLINE.txt dist/
+          cp LEIA-ME-CUSTO-ZERO.txt dist/
+          cp MODELO_IMPORTACAO_ALUNOS.csv dist/
+          cp SERVIDOR_EXEMPLO.env.txt dist/
+          cp SERVIDOR_EMAIL_EXEMPLO.json dist/
+          cp LEIA-ME-EMAIL.txt dist/
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: JED-Simulador-Windows-unsigned
+          path: dist/*
+          if-no-files-found: error

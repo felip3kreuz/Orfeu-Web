@@ -1,0 +1,81 @@
+name: SignPath Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build-and-sign:
+    if: ${{ vars.SIGNPATH_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Test
+        run: |
+          go test ./...
+          go run . --self-test
+
+      - name: Install go-winres
+        run: go install github.com/tc-hib/go-winres@v0.3.3
+
+      - name: Generate Windows resources
+        run: |
+          go-winres simply             --arch amd64,386             --out rsrc             --icon jed_icon.ico             --manifest gui             --product-version 2.0.0.18             --file-version 2.0.0.18             --product-name "JED Simulador"             --file-description "Simulador educacional de empreendedorismo"             --copyright "JED Simulador contributors"
+
+      - name: Build Windows binaries
+        shell: bash
+        run: |
+          mkdir -p dist
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-H windowsgui -s -w"             -o dist/JED_Simulador.exe .
+
+          GOOS=windows GOARCH=386 CGO_ENABLED=0             go build -trimpath -ldflags="-H windowsgui -s -w"             -o dist/JED_Simulador_32bits.exe .
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.diagConsole=true"             -o dist/JED_Simulador_Diagnostico.exe .
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.serverMode=true -s -w"             -o dist/JED_Servidor.exe .
+
+          GOOS=windows GOARCH=386 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.serverMode=true -s -w"             -o dist/JED_Servidor_32bits.exe .
+
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0             go build -trimpath -ldflags="-X main.forceClassic=true -s -w"             -o dist/JED_Simulador_Classic.exe .
+
+      - name: Upload unsigned artifact
+        id: upload-unsigned
+        uses: actions/upload-artifact@v7
+        with:
+          name: JED-Simulador-Windows-to-sign
+          path: dist/*
+          if-no-files-found: error
+
+      - name: Submit signing request to SignPath
+        uses: signpath/github-action-submit-signing-request@v3
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ vars.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: '${{ vars.SIGNPATH_PROJECT_SLUG }}'
+          signing-policy-slug: '${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}'
+          artifact-configuration-slug: '${{ vars.SIGNPATH_ARTIFACT_CONFIGURATION_SLUG }}'
+          github-artifact-id: '${{ steps.upload-unsigned.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: signed
+          parameters: |
+            version: "2.0.0.18"
+
+      - name: Upload signed artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: JED-Simulador-Windows-signed
+          path: signed/*
+          if-no-files-found: error

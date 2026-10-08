@@ -1,0 +1,66 @@
+name: Build Web
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "cmd/jed-wasm/**"
+      - "internal/core/**"
+      - "internal/wasmbridge/**"
+      - "scripts/build-wasm.sh"
+      - "scripts/build-web.sh"
+      - "go.mod"
+      - "package.json"
+      - "vercel.json"
+      - ".github/workflows/build-web.yml"
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "cmd/jed-wasm/**"
+      - "internal/core/**"
+      - "internal/wasmbridge/**"
+      - "scripts/build-wasm.sh"
+      - "scripts/build-web.sh"
+      - "go.mod"
+      - "package.json"
+      - "vercel.json"
+      - ".github/workflows/build-web.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+
+      - name: Test Go
+        run: go test ./...
+
+      - name: Install Web dependencies
+        run: npm --prefix web install
+
+      - name: Build Next.js + WebAssembly
+        run: bash scripts/build-web.sh
+
+      - name: Verify Web build
+        run: |
+          test -f web/public/wasm/jed-core.wasm
+          test -f web/public/wasm/wasm_exec.js
+          test -d web/.next

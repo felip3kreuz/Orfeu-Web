@@ -1,0 +1,49 @@
+name: Build WebAssembly
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-wasm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Test
+        run: go test ./...
+
+      - name: Build WebAssembly
+        run: bash scripts/build-wasm.sh
+
+      - name: Smoke test WebAssembly runtime
+        run: node scripts/smoke-wasm.mjs
+
+      - name: Verify artifact
+        run: |
+          test -s dist/wasm/jed-core.wasm
+          test -s dist/wasm/wasm_exec.js
+          test -s dist/wasm/jed-core.js
+
+      - name: Upload WebAssembly artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: JED-Core-WebAssembly
+          path: dist/wasm/*
+          if-no-files-found: error
