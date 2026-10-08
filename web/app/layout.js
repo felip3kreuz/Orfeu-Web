@@ -4,8 +4,8 @@ export const metadata = {
   title: "Orfeu Web",
   description: "Orfeu no navegador, com motor Go/WebAssembly e autenticação no servidor de simulação.",
   icons: {
-    icon: "/orfeu-mark.svg",
-    shortcut: "/orfeu-mark.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 };
 
