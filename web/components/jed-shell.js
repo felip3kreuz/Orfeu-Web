@@ -2,6 +2,7 @@ import Link from "next/link";
 import LogoutButton from "@/components/logout-button";
 import PanelNavigation from "@/components/panel-navigation";
 import OrfeuTutorial from "@/components/orfeu-tutorial";
+import OrfeuNotifications from "@/components/orfeu-notifications";
 import OrfeuSocialsPopup from "@/components/orfeu-socials-popup";
 import { roleLabel } from "@/lib/roles";
 
@@ -14,7 +15,7 @@ export function JEDChrome({ compact = false }) {
       </Link>
       <div className="orbit-chrome-meta">
         <span className="orbit-help">TUTORIAL POR PERFIL&nbsp;&nbsp;•&nbsp;&nbsp;WEB ONLINE</span>
-        <strong>ORFEU WEB / OX-78-1</strong>
+        <strong>ORFEU WEB / OX-78-2</strong>
       </div>
     </header>
   );
@@ -46,6 +47,7 @@ export default function JEDShell({ user, role, title, subtitle, children }) {
             </div>
             <PanelNavigation role={role} />
             <div className="orbit-rail-foot">
+              <OrfeuNotifications />
               <OrfeuTutorial role={role} user={user} />
               <OrfeuSocialsPopup role={role} user={user} />
               <span className="orbit-status-line"><i /> SERVIDOR ONLINE</span>

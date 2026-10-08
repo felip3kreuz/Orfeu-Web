@@ -163,7 +163,7 @@ export default function OrfeuTutorial({ role, user }) {
   const welcomeDialog = welcome ? (
     <div className="orfeu-tour-welcome">
       <div className="orfeu-tour-popover" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="orfeu-welcome-title">
-        <span className="orfeu-tour-count">ORFEU WEB OX-78-1 · TUTORIAL DO {roleNames[role].toUpperCase()}</span>
+        <span className="orfeu-tour-count">ORFEU WEB OX-78-2 · TUTORIAL DO {roleNames[role].toUpperCase()}</span>
         <h2 id="orfeu-welcome-title">Conheça seu painel</h2>
         <p>Deseja realizar uma visita guiada às funções disponíveis para o perfil {roleNames[role]}? O tutorial é ilustrativo e não modifica seus dados.</p>
         <p>Você poderá interromper, retomar ou reiniciar a qualquer momento pelo botão TUTORIAL.</p>

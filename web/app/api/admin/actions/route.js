@@ -48,6 +48,10 @@ export async function POST(request) {
         path = "/api/v1/admin/classes";
         body = { name: input.name, mentor_id: input.mentor_id };
         break;
+      case "assign_class_mentor":
+        path = "/api/v1/admin/classes/assign-mentor";
+        body = { class_id: input.class_id, mentor_id: input.mentor_id };
+        break;
       case "assign_student_class":
         path = "/api/v1/admin/students/assign-class";
         body = { user_id: input.user_id, class_id: input.class_id || "" };

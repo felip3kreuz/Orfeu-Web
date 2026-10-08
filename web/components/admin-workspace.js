@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Modal from "@/components/modal";
 
-const TEMP_PASSWORD = "acbd1234";
+const TEMP_PASSWORD = "abcd1234";
 
 function roleName(role) {
   if (role === "admin") return "ADMINISTRADOR";
@@ -82,6 +82,7 @@ export default function AdminWorkspace({ user }) {
   const [dialog, setDialog] = useState("");
   const [form, setForm] = useState({ role: "aluno", name: "", email: "", institution: "", institutional_id: "", class_id: "" });
   const [classForm, setClassForm] = useState({ name: "", mentor_id: "" });
+  const [classMentor, setClassMentor] = useState({ class_id: "", name: "", mentor_id: "" });
   const [assignment, setAssignment] = useState({ user_id: "", student_name: "", class_id: "" });
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState("");
@@ -98,8 +99,7 @@ export default function AdminWorkspace({ user }) {
         email: payload.email || { configured: false },
       };
       setData(next);
-      const firstMentor = next.users.find((entry) => (entry.role === "mentor" || entry.role === "tutor") && entry.status !== "disabled");
-      setClassForm((current) => ({ ...current, mentor_id: current.mentor_id || firstMentor?.id || "" }));
+      // Do not force the first Mentor: classes may be opened before one is appointed.
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Falha ao carregar administração."); }
     finally { setLoading(false); }
   }
@@ -115,7 +115,8 @@ export default function AdminWorkspace({ user }) {
 
   function classByID(id) { return data.classes.find((entry) => entry.id === id); }
   function classLabel(cl) { return cl ? `T${cl.number} · ${cl.name}` : "AGUARDANDO TURMA"; }
-  function mentorName(id) { return data.users.find((entry) => entry.id === id)?.name || "Mentor não encontrado"; }
+  function mentorName(id) { return !id ? "SEM MENTOR" : data.users.find((entry) => entry.id === id)?.name || "Mentor não encontrado"; }
+  const assignedClasses = data.classes.filter((cl) => Boolean(cl.tutor_id));
 
   function resolveCSVClass(ref) {
     const value = String(ref || "").trim();
@@ -153,8 +154,22 @@ export default function AdminWorkspace({ user }) {
     event.preventDefault();
     const result = await action({ action: "create_class", ...classForm }, "Turma criada e numerada automaticamente.");
     if (result) {
-      setNotice(`Turma T${result.number} · ${result.name} criada e atribuída a ${mentorName(result.tutor_id)}.`);
-      setClassForm((current) => ({ name: "", mentor_id: current.mentor_id }));
+      setNotice(`Turma T${result.number} · ${result.name} criada. ${result.tutor_id ? `Mentor: ${mentorName(result.tutor_id)}.` : "Aguardando designação de Mentor."}`);
+      setClassForm({ name: "", mentor_id: "" });
+      setDialog("");
+    }
+  }
+
+  function openClassMentor(cl) {
+    setClassMentor({ class_id: cl.id, name: `T${cl.number} · ${cl.name}`, mentor_id: "" });
+    setDialog("classMentor");
+  }
+
+  async function saveClassMentor(event) {
+    event.preventDefault();
+    const result = await action({ action: "assign_class_mentor", class_id: classMentor.class_id, mentor_id: classMentor.mentor_id });
+    if (result) {
+      setNotice(`${classMentor.name}: Mentor ${mentorName(result.tutor_id)} designado.`);
       setDialog("");
     }
   }
@@ -251,7 +266,7 @@ export default function AdminWorkspace({ user }) {
 
     <section className="orbit-toolbar" aria-label="Ações administrativas">
       <button className="primary-button" type="button" onClick={() => setDialog("user")}>CADASTRAR USUÁRIO</button>
-      <button className="secondary-button" type="button" onClick={() => setDialog("class")} disabled={!mentors.length}>CRIAR TURMA</button>
+      <button className="secondary-button" type="button" onClick={() => setDialog("class")}>NOVA TURMA</button>
       <label className="secondary-button file-button">IMPORTAR CSV<input type="file" accept=".csv,text/csv" onChange={importCSV} disabled={Boolean(busy)} /></label>
       <button className="secondary-button" type="button" onClick={downloadTemplate}>BAIXAR MODELO CSV</button>
       <button className="secondary-button" type="button" onClick={load}>ATUALIZAR</button>
@@ -259,8 +274,8 @@ export default function AdminWorkspace({ user }) {
 
     <section id="admin-turmas" className="workspace-section orbit-section">
       <div className="workspace-section-head"><div><p className="eyebrow">TURMAS</p><h2>GESTÃO CENTRALIZADA</h2></div><span className="section-count">{data.classes.length} TURMA(S)</span></div>
-      <p className="section-help">O Administrador define o nome e o Mentor responsável. O número T é sequencial e permanente; cada Aluno recebe uma matrícula própria, como <strong>T25A4</strong>. A exclusão definitiva de turmas é exclusiva do Administrador Principal.</p>
-      <div className="table-wrap"><table className="workspace-table"><thead><tr><th>ID</th><th>Nome</th><th>Mentor</th><th>Alunos</th><th>Cenário</th>{user.is_primary_admin ? <th>Ação</th> : null}</tr></thead><tbody>{data.classes.length ? data.classes.map((cl) => <tr key={cl.id}><td><strong>T{cl.number}</strong></td><td>{cl.name}</td><td>{mentorName(cl.tutor_id)}</td><td>{cl.student_ids?.length || 0}</td><td>{cl.scenario?.nome || "Mercado estável"}</td>{user.is_primary_admin ? <td><button className="table-action danger-action" disabled={Boolean(busy)} onClick={() => requestDelete({ type: "class", id: cl.id, name: `T${cl.number} · ${cl.name}`, detail: `${cl.student_ids?.length || 0} aluno(s) · Mentor: ${mentorName(cl.tutor_id)}` })}>EXCLUIR</button></td> : null}</tr>) : <tr><td colSpan={user.is_primary_admin ? 6 : 5} className="empty-cell">Nenhuma turma cadastrada. Cadastre primeiro um Mentor e depois crie a turma.</td></tr>}</tbody></table></div>
+      <p className="section-help">Crie uma turma com nome e Mentor opcional: o número T é sequencial e permanente. Turmas sem Mentor aguardam designação antes das matrículas. Cada Aluno matriculado recebe uma ID própria, como <strong>T25A4</strong>. Apenas o Administrador Principal pode excluir turmas.</p>
+      <div className="table-wrap"><table className="workspace-table"><thead><tr><th>ID</th><th>Nome</th><th>Mentor</th><th>Alunos</th><th>Cenário</th>{user.is_primary_admin ? <th>Ação</th> : null}</tr></thead><tbody>{data.classes.length ? data.classes.map((cl) => <tr key={cl.id}><td><strong>T{cl.number}</strong></td><td>{cl.name}</td><td>{cl.tutor_id ? mentorName(cl.tutor_id) : <><strong>AGUARDANDO MENTOR</strong><button className="table-action" type="button" disabled={!mentors.length || Boolean(busy)} onClick={() => openClassMentor(cl)} title={!mentors.length ? "Cadastre um Mentor para poder designá-lo" : "Designar Mentor à turma"}>DESIGNAR MENTOR</button></>}</td><td>{cl.student_ids?.length || 0}</td><td>{cl.scenario?.nome || "Mercado estável"}</td>{user.is_primary_admin ? <td><button className="table-action danger-action" disabled={Boolean(busy)} onClick={() => requestDelete({ type: "class", id: cl.id, name: `T${cl.number} · ${cl.name}`, detail: `${cl.student_ids?.length || 0} aluno(s) · Mentor: ${mentorName(cl.tutor_id)}` })}>EXCLUIR</button></td> : null}</tr>) : <tr><td colSpan={user.is_primary_admin ? 6 : 5} className="empty-cell">Nenhuma turma cadastrada. Clique em NOVA TURMA para criar a primeira, mesmo sem Mentor.</td></tr>}</tbody></table></div>
     </section>
 
     <section id="usuarios" className="workspace-section orbit-section">
@@ -302,7 +317,7 @@ export default function AdminWorkspace({ user }) {
         <label>NOME<input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></label>
         <label>E-MAIL<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required /></label>
         <div className="orbit-form-two"><label>INSTITUIÇÃO<input value={form.institution} onChange={(e) => setForm({ ...form, institution: e.target.value })} /></label><label>ID INSTITUCIONAL<input value={form.institutional_id} onChange={(e) => setForm({ ...form, institutional_id: e.target.value })} /></label></div>
-        {form.role === "aluno" ? <label>TURMA<select value={form.class_id} onChange={(e) => setForm({ ...form, class_id: e.target.value })}><option value="">Aguardando turma</option>{data.classes.map((cl) => <option key={cl.id} value={cl.id}>T{cl.number} · {cl.name} · {mentorName(cl.tutor_id)}</option>)}</select></label> : null}
+        {form.role === "aluno" ? <label>TURMA<select value={form.class_id} onChange={(e) => setForm({ ...form, class_id: e.target.value })}><option value="">Aguardando turma</option>{assignedClasses.map((cl) => <option key={cl.id} value={cl.id}>T{cl.number} · {cl.name} · {mentorName(cl.tutor_id)}</option>)}</select></label> : null}
         {form.role === "aluno" && form.class_id ? <div className="activation-note"><strong>MATRÍCULA AUTOMÁTICA</strong><span>O sistema gerará o próximo identificador disponível da turma, por exemplo T25A4.</span></div> : null}
         <div className="activation-note"><strong>SENHA TEMPORÁRIA</strong><span>{TEMP_PASSWORD} · troca obrigatória no primeiro acesso.</span></div>
         <div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setDialog("")}>CANCELAR</button><button className="primary-button" disabled={Boolean(busy)}>CADASTRAR E AVISAR POR E-MAIL</button></div>
@@ -312,15 +327,23 @@ export default function AdminWorkspace({ user }) {
     <Modal open={dialog === "class"} title="CRIAR TURMA" subtitle="O Administrador define o nome; o número da turma é gerado automaticamente." onClose={() => setDialog("")}>
       <form className="orbit-form" onSubmit={createClass}>
         <label>NOME DA TURMA<input value={classForm.name} onChange={(e) => setClassForm({ ...classForm, name: e.target.value })} placeholder="Empreendedorismo 2026 — Turma B" required /></label>
-        <label>MENTOR RESPONSÁVEL<select value={classForm.mentor_id} onChange={(e) => setClassForm({ ...classForm, mentor_id: e.target.value })} required><option value="">Selecione o Mentor</option>{mentors.map((mentor) => <option key={mentor.id} value={mentor.id}>{mentor.name} · {mentor.email}</option>)}</select></label>
-        <div className="activation-note"><strong>NUMERAÇÃO</strong><span>A próxima turma receberá automaticamente um identificador permanente T.</span></div>
-        <div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setDialog("")}>CANCELAR</button><button className="primary-button" disabled={Boolean(busy) || !classForm.name.trim() || !classForm.mentor_id}>CRIAR TURMA</button></div>
+        <label>MENTOR RESPONSÁVEL (OPCIONAL)<select value={classForm.mentor_id} onChange={(e) => setClassForm({ ...classForm, mentor_id: e.target.value })}><option value="">Designar posteriormente</option>{mentors.map((mentor) => <option key={mentor.id} value={mentor.id}>{mentor.name} · {mentor.email}</option>)}</select></label>
+        <div className="activation-note"><strong>NUMERAÇÃO AUTOMÁTICA</strong><span>A turma receberá um identificador permanente T (por exemplo, T26). {classForm.mentor_id ? "Alunos poderão ser matriculados normalmente." : "Sem Mentor, a turma ficará aguardando designação e não receberá matrículas ainda."}</span></div>
+        <div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setDialog("")}>CANCELAR</button><button className="primary-button" disabled={Boolean(busy) || !classForm.name.trim()}>CRIAR TURMA</button></div>
+      </form>
+    </Modal>
+
+    <Modal open={dialog === "classMentor"} title="DESIGNAR MENTOR" subtitle={classMentor.name || "Turma"} onClose={() => setDialog("")}>
+      <form className="orbit-form" onSubmit={saveClassMentor}>
+        <label>MENTOR RESPONSÁVEL<select value={classMentor.mentor_id} onChange={(e) => setClassMentor({ ...classMentor, mentor_id: e.target.value })} required><option value="">Selecione um Mentor</option>{mentors.map((mentor) => <option key={mentor.id} value={mentor.id}>{mentor.name} · {mentor.email}</option>)}</select></label>
+        <div className="activation-note"><strong>ATIVAR MATRÍCULAS</strong><span>Após a designação, o Administrador poderá matricular alunos e o Mentor verá esta turma no próprio painel. O número T permanece inalterado.</span></div>
+        <div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setDialog("")}>CANCELAR</button><button className="primary-button" disabled={Boolean(busy) || !classMentor.mentor_id}>CONFIRMAR MENTOR</button></div>
       </form>
     </Modal>
 
     <Modal open={dialog === "assignment"} title="TURMA DO ALUNO" subtitle={assignment.student_name || "Aluno"} onClose={() => setDialog("")}>
       <form className="orbit-form" onSubmit={saveAssignment}>
-        <label>TURMA<select value={assignment.class_id} onChange={(e) => setAssignment({ ...assignment, class_id: e.target.value })}><option value="">Aguardando turma</option>{data.classes.map((cl) => <option key={cl.id} value={cl.id}>T{cl.number} · {cl.name} · {mentorName(cl.tutor_id)}</option>)}</select></label>
+        <label>TURMA<select value={assignment.class_id} onChange={(e) => setAssignment({ ...assignment, class_id: e.target.value })}><option value="">Aguardando turma</option>{assignedClasses.map((cl) => <option key={cl.id} value={cl.id}>T{cl.number} · {cl.name} · {mentorName(cl.tutor_id)}</option>)}</select></label>
         <div className="activation-note"><strong>HISTÓRICO PRESERVADO</strong><span>Ao transferir, a matrícula anterior é encerrada e uma nova ID é criada na turma de destino. IDs antigas nunca são reutilizadas.</span></div>
         <div className="modal-actions"><button type="button" className="secondary-button" onClick={() => setDialog("")}>CANCELAR</button><button className="primary-button" disabled={Boolean(busy)}>SALVAR VÍNCULO</button></div>
       </form>
