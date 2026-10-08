@@ -1,0 +1,243 @@
+{
+  "project": "JED Simulador",
+  "base_version": "2.0.0-rc1.8",
+  "architecture_step": "W1.1-core-domain-types",
+  "license": "GPL-3.0",
+  "files": [
+    {
+      "path": ".github/workflows/build-windows.yml",
+      "size": 2641,
+      "sha256": "45a8a26d9b571b88a5e28f741b3e7b20160ff609d09875898a0f48ea64f895fc"
+    },
+    {
+      "path": ".github/workflows/signpath-release.yml",
+      "size": 3212,
+      "sha256": "7c52da9a7427b055d8f5e061327e997fbc2d0a61a632c0a7180edce0da298ae6"
+    },
+    {
+      "path": ".gitignore",
+      "size": 325,
+      "sha256": "2a849a9c21e7a899f7d211dd509c874a4558ccf49da484363a9b69db6bebd909"
+    },
+    {
+      "path": ".signpath/artifact-configurations/jed-windows.xml",
+      "size": 788,
+      "sha256": "306c554c724b4bcf50201bf969258d212aa47a365efc863022a8ca0e45e5e658"
+    },
+    {
+      "path": "00_COMECE_AQUI.txt",
+      "size": 984,
+      "sha256": "ce4af16c22a7f4610f247dd5b2856f04eb71c18e5ec55324fd7aefdbe8242b13"
+    },
+    {
+      "path": "CODE_SIGNING_POLICY.md",
+      "size": 1609,
+      "sha256": "256ee499b5c4ae6a5b451e8df2545b9db43e01843b7c77650967674db1c64fa5"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "size": 653,
+      "sha256": "c5603c3667abf22aeb57cae3b309fe8673672581376cf38c6cc61c8633a8a3c3"
+    },
+    {
+      "path": "LEIA-ME-ADMINISTRADOR.txt",
+      "size": 1684,
+      "sha256": "7c493b7a4b1942de08056638b6e26303120d829f1442c7a2c80208b6981a5f20"
+    },
+    {
+      "path": "LEIA-ME-CUSTO-ZERO.txt",
+      "size": 833,
+      "sha256": "bac780b3a4d1701954048c620667b44b2bb2d58b0f48d3916515565e2023ffe7"
+    },
+    {
+      "path": "LEIA-ME-EMAIL.txt",
+      "size": 1926,
+      "sha256": "69f63e08e00b38adf75b0cf3f6fb2ad3c3539405adddd700381e83918940493a"
+    },
+    {
+      "path": "LEIA-ME-ONLINE.txt",
+      "size": 3067,
+      "sha256": "7370cb531fd58caf03b6c9f96cbc67ce8e64cb5ce867b2dc12bfca9c5cf0d9e0"
+    },
+    {
+      "path": "LEIA-ME.txt",
+      "size": 1859,
+      "sha256": "f92b64cf679ee27c3e4978aefd2fc983a5b527cc836159ee927db2602021a4a7"
+    },
+    {
+      "path": "LICENSE",
+      "size": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986"
+    },
+    {
+      "path": "MODELO_IMPORTACAO_ALUNOS.csv",
+      "size": 114,
+      "sha256": "be2c1a0c680ea4d55f90a8d5cb3685b994b30bc72f9c80c2e7c763803f9a5df6"
+    },
+    {
+      "path": "PRIVACY.md",
+      "size": 2012,
+      "sha256": "ee1086462fe38d0ee528a333ac5d37d036af498b7db6f6f51457c483babd3f1b"
+    },
+    {
+      "path": "README.md",
+      "size": 4112,
+      "sha256": "d842ac1cc31971839dad63dd8c3b0a72ed04995ca5f0bfb46bb744df283a5d89"
+    },
+    {
+      "path": "README_DESENVOLVIMENTO.md",
+      "size": 6026,
+      "sha256": "456ba36600e98b67c3d7a9242addc10830b71684c57645f682b6a782291338ed"
+    },
+    {
+      "path": "SECURITY.md",
+      "size": 820,
+      "sha256": "23db048efed113c729155554b71580be6256753812b166c6cee57d8ace86986a"
+    },
+    {
+      "path": "SERVIDOR_EMAIL_EXEMPLO.json",
+      "size": 239,
+      "sha256": "f09a20263c1c7a67228abd938d1807a062749a0e354a6f72b786ddeb953023a4"
+    },
+    {
+      "path": "SERVIDOR_EXEMPLO.env.txt",
+      "size": 525,
+      "sha256": "4a1e8670c9fd649d9529c58f0d8c4f2701a3f9c5c9fda57a2830c40af75425ae"
+    },
+    {
+      "path": "SHA256.txt",
+      "size": 536,
+      "sha256": "06e114f97bed46612afcd02263b377010ea057edfec1feb2e2274ce17c8d9bce"
+    },
+    {
+      "path": "build_windows.bat",
+      "size": 576,
+      "sha256": "1e14b4b5125d7ad67541560150d14ca66fd8a9f75506fbbeeb9de63dfba068d9"
+    },
+    {
+      "path": "catalogo_insumos.json",
+      "size": 32128,
+      "sha256": "28556c3a7b32ec7fa331aa51beb04f2dd6bdca8f1a1004b7005e7e6beb60ea40"
+    },
+    {
+      "path": "catalogo_negocios.json",
+      "size": 71657,
+      "sha256": "33f06bec9d521937c67c3798f114026853981564e5ec82e98b13e02222d25f3d"
+    },
+    {
+      "path": "console_other.go",
+      "size": 222,
+      "sha256": "20fbbfc9f718945406fc7c07992a4a5308081e712ec8d2bc0150713e8dd5a49f"
+    },
+    {
+      "path": "console_secret_other.go",
+      "size": 198,
+      "sha256": "601a5eef7e956b40e0c5be2d2e2ceb5bc8c45278b54c64a93d522ea47dc37d8f"
+    },
+    {
+      "path": "console_secret_windows.go",
+      "size": 989,
+      "sha256": "6a81932a95469054fa922287aa1d7db1027c1b62cbc9b1fc37a0ba1941eee2e6"
+    },
+    {
+      "path": "console_windows.go",
+      "size": 1198,
+      "sha256": "d62ebf05ff475c14e40d00eb38453ddb393ebdfa5b7b8e603d347165f5abf778"
+    },
+    {
+      "path": "core_compat.go",
+      "size": 1179,
+      "sha256": "3b0ad0ecb9718b4b0c7378b7596df2ca94ac184a7d49be1b3bd217cfb3091c34"
+    },
+    {
+      "path": "docs/JED_RC1_8_MAPEAMENTO_W1.md",
+      "size": 9478,
+      "sha256": "fbcf269c88d8402bf2610d18467a700f44e272e3ebc661b2d5d9fa2c29f1d855"
+    },
+    {
+      "path": "docs/RELEASE_CHECKLIST.md",
+      "size": 1003,
+      "sha256": "3724c6ff94b3cd3f74f346882a4fa7aedaee0cd1b2ef30b9d8d6596a39b2394c"
+    },
+    {
+      "path": "docs/SIGNPATH_APPLICATION_TEMPLATE.md",
+      "size": 1867,
+      "sha256": "14fd244aa7ebea99a5a47a16589a8e32e69fa6bbfb1a73f00242817e05fa5103"
+    },
+    {
+      "path": "docs/SIGNPATH_SETUP.md",
+      "size": 2991,
+      "sha256": "fd5b8f5fe984baee745c9912f610ca8a7433bbfaccd34191c46bcd5056c0ad73"
+    },
+    {
+      "path": "docs/W1_1_CORE_TIPOS.md",
+      "size": 1427,
+      "sha256": "2c9ac16dec6db996a9fdc4ae0a2973853b47f9c30967222741836a9487a41d47"
+    },
+    {
+      "path": "email_server.go",
+      "size": 13761,
+      "sha256": "1a784a04c1c33498e36282107a7cdcf308f55aa63eb8589b44e5c9c4034c1f0a"
+    },
+    {
+      "path": "email_server_test.go",
+      "size": 4175,
+      "sha256": "c533db5ed684597a150d2f8713dfcaa67475ceb9cc48dafc4e9c37c2c9b30d1f"
+    },
+    {
+      "path": "go.mod",
+      "size": 30,
+      "sha256": "ab6d590053b65cc3dbb3c50f6f3ff3f406c9f397abd6316ff971db0d8b17296e"
+    },
+    {
+      "path": "internal/core/types.go",
+      "size": 16482,
+      "sha256": "6146d250f5aafa6bddd51cbe9895e3556d3ffb76c31f2e2e38fd8cc047aa423e"
+    },
+    {
+      "path": "jed_icon.ico",
+      "size": 169839,
+      "sha256": "953c36b81e222bc1d7fef7f41c730b6d092758101117119ab4d59cebae33b559"
+    },
+    {
+      "path": "main.go",
+      "size": 126220,
+      "sha256": "7dcbe92af687573999e24fd293aa83b979c0c7947b22e8d5c2890a539329a95a"
+    },
+    {
+      "path": "native_stub.go",
+      "size": 144,
+      "sha256": "a3983c4d3f28abfc558c352102a44ec653e43a65703d8fbdb436906c1f1edfa9"
+    },
+    {
+      "path": "native_windows.go",
+      "size": 90932,
+      "sha256": "f97fb222c096cf199654dbcc05513736ac548abd1cf73b7fcbe123728c971f8e"
+    },
+    {
+      "path": "online_admin_test.go",
+      "size": 4408,
+      "sha256": "3973b2e7ee2a97f7f0c5e79d06f4d698147e68d59f117bba46fba0e6334f123d"
+    },
+    {
+      "path": "online_client.go",
+      "size": 13719,
+      "sha256": "0eba5814b2aee301b9bb843b11808566b9e1f09755a30ee495ff3044bc264f35"
+    },
+    {
+      "path": "online_first_run_test.go",
+      "size": 443,
+      "sha256": "092cdfd599a3532ff025806732586936189970ef789fda7219a0ba205b23a61e"
+    },
+    {
+      "path": "online_registration_test.go",
+      "size": 3806,
+      "sha256": "bd078404cc7a4726f4d45c29244210371a8adcc96160f109c447066b342a01fa"
+    },
+    {
+      "path": "online_server.go",
+      "size": 48252,
+      "sha256": "2ec5fd77b428414706f86cb38c4047cb54d121733f9aed8ac16a6c89b66bc4b1"
+    }
+  ]
+}

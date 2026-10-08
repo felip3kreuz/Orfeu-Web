@@ -1,0 +1,18 @@
+JED Simulador v2.0 RC1.8 — W7.3
+GESTÃO CENTRALIZADA DE TURMAS E MATRÍCULAS
+
+PRINCIPAIS ALTERAÇÕES
+- Administrador cria e nomeia turmas.
+- Administrador designa o Mentor responsável.
+- Aluno pode ser matriculado já no cadastro.
+- Matrícula automática T{turma}A{sequência}; ex.: T25A4.
+- Transferências preservam histórico e geram nova matrícula.
+- Números de matrícula nunca são reutilizados.
+- CSV recebe coluna opcional "turma".
+- Fluxo de ingresso por código foi desativado.
+- Mentor continua escolhendo/alterando o cenário pedagógico da turma.
+- E-mail de cadastro do Aluno passa a informar turma e matrícula quando já atribuídas.
+
+ATUALIZAÇÃO DO SERVIDOR ORACLE
+Esta versão altera o servidor Go. Depois do merge, faça backup de /opt/jed/data,
+recompile a imagem Docker e recrie o container preservando o volume /opt/jed/data:/data.

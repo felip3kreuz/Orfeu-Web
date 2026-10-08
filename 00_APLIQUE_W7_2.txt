@@ -1,0 +1,37 @@
+JED SIMULADOR v2.0 RC1.8 — W7.2
+AVALIAÇÃO PEDAGÓGICA DO MENTOR + LIMPEZA DA BARRA ADMIN
+
+1. Aplique os arquivos deste pacote sobre a W7.1.1.
+2. Faça commit/merge no GitHub.
+3. Aguarde o deploy da Vercel.
+4. Como esta versão altera o JED Servidor, atualize a VM Oracle:
+
+   cd ~/JED-Simulador
+   git pull --ff-only origin main
+   sudo tar -czf /opt/jed/jed-data-backup-$(date +%Y%m%d-%H%M%S).tar.gz -C /opt/jed data
+   sudo docker build -t jed-server .
+   sudo docker rm -f jed-server
+   sudo docker run -d \
+     --name jed-server \
+     --restart unless-stopped \
+     --dns 1.1.1.1 \
+     --dns 8.8.8.8 \
+     -p 127.0.0.1:8787:8787 \
+     -v /opt/jed/data:/data \
+     -e JED_SERVER_DATA=/data \
+     -e JED_PUBLIC_URL=https://jed-simulador-onpq.vercel.app \
+     jed-server
+
+   curl http://127.0.0.1:8787/health
+
+ALTERAÇÕES
+- Mentor: APROVAR/REPROVAR empreendimento e registrar comentário (até 4.000 caracteres).
+- Avaliação registra Mentor e data/hora e pode ser alterada com REAVALIAR.
+- Aluno: visualiza a avaliação e o parecer em MINHA EMPRESA.
+- Persistência: sincronizações posteriores do Aluno preservam a avaliação do Mentor.
+- Segurança: Mentor só pode avaliar empresas vinculadas às próprias turmas.
+- Administrador: removidos da barra lateral VISÃO GERAL, USUÁRIOS e IMPORTAR CSV; ficam identificação, status do servidor e SAIR.
+
+COMPATIBILIDADE
+- Dados W7.1/W7.1.1 continuam compatíveis; campos novos são opcionais.
+- SMTP/configuração de e-mail não é alterado.

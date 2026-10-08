@@ -1,0 +1,9 @@
+{
+  "host": "smtp.exemplo.com",
+  "port": 587,
+  "username": "conta@exemplo.com",
+  "password": "SUBSTITUA_PELA_SENHA_OU_SENHA_DE_APLICATIVO",
+  "from_email": "conta@exemplo.com",
+  "from_name": "JED Simulador",
+  "security": "starttls"
+}

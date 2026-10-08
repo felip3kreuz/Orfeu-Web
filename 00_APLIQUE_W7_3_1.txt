@@ -1,0 +1,23 @@
+JED Simulador v2.0 RC1.8 — W7.3.1
+CORREÇÃO DE INTEGRAÇÃO: TURMAS CENTRALIZADAS + EXCLUSÃO ADMINISTRATIVA
+
+Esta correção deve ser aplicada sobre a branch/PR W7.3 que falhou no GitHub Actions.
+
+Corrige:
+- restaura deleteUserAsPrimary e deleteClassAsPrimary removidos por sobreposição de arquivos;
+- restaura os endpoints de exclusão do Administrador Principal;
+- mantém criação centralizada de turmas e matrículas T{turma}A{sequência};
+- ao excluir uma turma, Alunos passam para AGUARDANDO TURMA e o histórico de matrícula é encerrado;
+- mantém empreendimentos ao excluir turma, apenas removendo o vínculo;
+- preserva exclusão administrativa e filtros do Mentor da atualização anterior;
+- mantém a simplificação da barra lateral do Administrador.
+
+Validação local executada:
+- go test ./...
+- go run . --self-test
+- build Linux amd64
+- build Windows amd64
+- build WebAssembly
+- smoke test WebAssembly
+
+Após o merge, atualizar também o servidor Oracle porque online_server.go foi alterado.

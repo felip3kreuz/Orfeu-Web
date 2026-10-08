@@ -1,0 +1,58 @@
+JED SIMULADOR — GUIA RÁPIDO DO ADMINISTRADOR
+
+PRIMEIRO ADMINISTRADOR
+O Administrador não possui cadastro público.
+
+Na primeira execução, basta abrir:
+
+JED_Servidor.exe
+
+Se ainda não existir Administrador, o servidor detectará automaticamente o
+primeiro uso e oferecerá a criação do Administrador Principal.
+
+Como alternativa manual, continua disponível:
+
+JED_Servidor.exe --create-admin
+
+O programa solicitará:
+- nome;
+- e-mail;
+- senha;
+- confirmação da senha.
+
+Essa primeira conta será marcada como ADMINISTRADOR PRINCIPAL.
+
+INICIAR O SERVIDOR
+Depois da configuração:
+
+JED_Servidor.exe
+
+Sem ao menos uma conta Administrador, o servidor se recusa a iniciar.
+
+PAINEL ADMINISTRADOR
+Depois de entrar pelo JED ONLINE, o Administrador pode:
+- listar usuários;
+- criar outro Administrador;
+- ativar ou desativar contas;
+- emitir credenciais MTR para Mentores;
+- revogar credenciais pendentes;
+- conceder ou retirar de um Mentor a permissão de credenciar outros Mentores;
+- transferir a função de Administrador Principal.
+
+MENTORES
+Um Mentor novo NÃO recebe automaticamente permissão para criar outros Mentores.
+Essa delegação só é liberada pelo Administrador.
+
+RECUPERAÇÃO DE SENHA
+Na máquina que contém os dados do servidor:
+
+JED_Servidor.exe --reset-admin-password
+
+O comando pede o e-mail do Administrador e uma nova senha. As sessões anteriores
+da conta recuperada são invalidadas.
+
+SEGURANÇA
+- Não existe senha administrativa padrão.
+- Não existe botão de cadastro de Administrador.
+- O Administrador Principal não pode ser desativado antes da transferência da função.
+- Contas desativadas deixam de autenticar e perdem as sessões ativas.

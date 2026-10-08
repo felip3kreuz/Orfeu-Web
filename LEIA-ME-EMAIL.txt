@@ -1,0 +1,79 @@
+JED SIMULADOR — E-MAIL AUTOMÁTICO DE CREDENCIAIS
+
+A partir da v2.0 RC1.8, o servidor pode enviar automaticamente a credencial MTR
+para o e-mail do Mentor.
+
+O recurso é opcional. Sem SMTP configurado, o código continua sendo criado e pode
+ser enviado manualmente.
+
+CONFIGURAÇÃO MAIS SIMPLES
+
+Na pasta do servidor, abra o Prompt de Comando e execute:
+
+JED_Servidor.exe --configure-email
+
+O servidor perguntará:
+- endereço do servidor SMTP;
+- porta;
+- segurança: starttls, tls ou plain;
+- usuário SMTP;
+- senha SMTP;
+- e-mail remetente;
+- nome do remetente.
+
+A senha não aparece durante a digitação no Windows.
+
+A configuração é salva ao lado do executável em:
+
+servidor_email.json
+
+IMPORTANTE
+Esse arquivo contém uma credencial de e-mail. Ele é local e NÃO deve ser enviado
+ao GitHub, compartilhado ou incluído em uma release pública.
+
+TESTE
+
+Depois de configurar:
+
+JED_Servidor.exe --test-email
+
+Informe um endereço de e-mail. O servidor enviará uma mensagem de teste.
+
+SEGURANÇA
+
+starttls
+- opção mais comum, geralmente com porta 587.
+
+tls
+- conexão TLS desde o início, geralmente utilizada com porta 465.
+
+plain
+- sem criptografia. Use apenas com relay SMTP interno/confiável e sem autenticação.
+
+COMPORTAMENTO DOS CONVITES
+
+Se o SMTP estiver configurado:
+1. o Administrador/Mentor autorizado cria a credencial;
+2. o código MTR é salvo no servidor;
+3. o e-mail é enviado;
+4. a tela informa que o envio foi concluído.
+
+Se o envio falhar:
+- a credencial NÃO é perdida;
+- o código MTR continua válido;
+- a tela mostra que o envio falhou;
+- o código pode ser enviado manualmente.
+
+Se não houver SMTP:
+- o comportamento anterior continua funcionando normalmente.
+
+E-MAIL ENVIADO AO MENTOR
+
+O e-mail contém:
+- nome do Mentor;
+- código MTR;
+- validade de 30 dias;
+- indicação de uso único;
+- instruções para JED Online → Cadastrar Mentor.
+
+Nunca são enviadas senhas de usuário.

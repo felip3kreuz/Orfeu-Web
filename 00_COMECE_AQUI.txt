@@ -1,0 +1,23 @@
+JED SIMULADOR — PACOTE GITHUB READY
+
+Base: v2.0.0-rc1.8
+Licença escolhida: GNU GPL v3
+
+PASSOS DO USUÁRIO:
+
+1. Crie um repositório público chamado JED-Simulador no GitHub.
+2. Substitua SEU_USUARIO_GITHUB nos arquivos Markdown.
+3. Envie o conteúdo desta pasta para o repositório.
+4. Ative autenticação de dois fatores no GitHub.
+5. Verifique se o workflow Build Windows funciona.
+6. Crie uma primeira Release pública não assinada.
+7. Solicite o SignPath Foundation.
+8. Depois da aprovação, configure as variables/secrets descritas em docs/SIGNPATH_SETUP.md.
+9. Cadastre o XML .signpath/artifact-configurations/jed-windows.xml no SignPath.
+10. Ative SIGNPATH_ENABLED=true e execute o workflow SignPath Release.
+
+IMPORTANTE:
+- Não coloque senhas ou tokens no repositório.
+- Não coloque o token SignPath em arquivo; use GitHub Actions Secrets.
+- A aprovação do SignPath Foundation não é automática.
+- O workflow de assinatura fica inativo até SIGNPATH_ENABLED=true.

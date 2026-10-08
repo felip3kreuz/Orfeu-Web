@@ -1,0 +1,101 @@
+JED 2.0 BETA 2 — TURMAS E CONVITES
+
+TUTOR
+1. Entre no JED ONLINE.
+2. Crie uma turma.
+3. Use CONVIDAR ALUNO ou IMPORTAR ALUNOS (CSV).
+4. Entregue ao aluno o código individual.
+5. Use CONVITES para acompanhar ativação.
+6. Use RESULTADOS DOS ALUNOS para acompanhar as empresas.
+
+ALUNO — PRIMEIRO ACESSO
+1. Abra JED ONLINE.
+2. Clique ATIVAR CONVITE.
+3. Informe servidor + código.
+4. Crie sua própria senha.
+5. A conta será criada como ALUNO e já vinculada à turma.
+
+IMPORTAÇÃO
+Use MODELO_IMPORTACAO_ALUNOS.csv.
+Colunas: nome,email,identificador_institucional
+
+IMPORTANTE
+A v2.0 beta 2 ainda não reutiliza a senha da Homero/JED institucional.
+Quando houver API/SSO oficial, a camada de autenticação poderá ser substituída
+mantendo turmas, cenários e resultados.
+
+
+AUTOCADASTRO — RC1.5
+
+ALUNO
+- Na tela JED ONLINE, escolha CADASTRAR ALUNO.
+- Informe nome, e-mail, identificador institucional opcional e senha.
+- A conta é criada imediatamente como ALUNO.
+- Depois use ENTRAR EM TURMA com o código fornecido pelo Mentor.
+
+MENTOR
+- O primeiro Mentor do servidor é criado pelo operador:
+  JED_Servidor.exe --create-mentor "Nome" email@exemplo.com "SenhaSegura123"
+- Um Mentor autorizado pode gerar CREDENCIAR MENTOR.
+- O código tem o formato MTR-XXXX-XXXX, é de uso único e expira em 30 dias.
+- O novo Mentor escolhe CADASTRAR MENTOR e informa o código.
+- O e-mail do cadastro precisa ser o mesmo para o qual a credencial foi emitida.
+
+
+ADMINISTRAÇÃO — RC1.6
+
+PRIMEIRA CONFIGURAÇÃO
+1. Abra um terminal na pasta do servidor.
+2. Execute:
+   JED_Servidor.exe --create-admin
+3. Informe nome e e-mail.
+4. Crie e confirme a senha.
+5. Depois inicie normalmente:
+   JED_Servidor.exe
+
+O servidor não inicia sem ao menos um Administrador.
+
+PAPÉIS
+- ADMINISTRADOR: contas, permissões e segurança da plataforma.
+- MENTOR: turmas e acompanhamento pedagógico.
+- ALUNO: própria conta e próprias simulações.
+
+MENTORES
+- Novos Mentores continuam usando credencial MTR.
+- Mentor comum não pode credenciar outro Mentor.
+- O Administrador pode conceder essa permissão individualmente.
+
+RECUPERAÇÃO LOCAL
+JED_Servidor.exe --reset-admin-password
+
+Esse comando só atua sobre os dados locais do servidor e encerra as sessões anteriores da conta recuperada.
+
+
+PRIMEIRO USO — RC1.7
+
+Agora não é necessário conhecer previamente o comando --create-admin.
+
+Se JED_Servidor.exe for aberto sem existir um Administrador, aparece:
+
+1. Criar Administrador Principal agora
+2. Sair sem alterar nada
+
+Ao concluir o cadastro, o servidor inicia automaticamente.
+
+O comando abaixo continua disponível para configuração manual:
+JED_Servidor.exe --create-admin
+
+
+E-MAIL AUTOMÁTICO — RC1.8
+
+Para configurar o envio de credenciais de Mentor:
+
+JED_Servidor.exe --configure-email
+
+Para testar:
+
+JED_Servidor.exe --test-email
+
+Quando o SMTP está configurado, uma credencial MTR é enviada automaticamente
+ao endereço informado no credenciamento. Se o envio falhar, o código continua válido.
+Sem SMTP, o sistema continua permitindo o envio manual do código.

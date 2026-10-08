@@ -1,0 +1,27 @@
+JED Simulador RC1.8 — Web W7.1
+Cadastro centralizado de contas
+
+ALTERAÇÕES PRINCIPAIS
+- Somente Administradores cadastram Alunos, Mentores e Administradores.
+- Cadastro individual ou por CSV.
+- Senha temporária padrão: acbd1234.
+- Troca obrigatória no primeiro acesso.
+- E-mail automático de cadastro via SMTP.
+- Status do envio visível no painel Admin e opção REENVIAR quando aplicável.
+- Autocadastro público, ativação por convite e credenciais MTR deixam de ser usados para novos cadastros.
+- Mentor continua gerenciando cenários, turmas e resultados, mas não cria contas.
+
+CSV
+Modelo incluído: MODELO_IMPORTACAO_USUARIOS.csv
+Cabeçalhos: nome,email,papel,instituicao,id_institucional
+Papel: aluno | mentor | admin
+
+APÓS O MERGE
+Atualize o servidor Oracle porque há alterações em online_server.go, online_client.go e email_server.go.
+
+SMTP
+A criação das contas funciona sem SMTP, mas o e-mail ficará como SMTP NÃO CONFIG.
+Para cumprir o envio automático, configure o SMTP uma única vez no servidor.
+Com Docker e JED_SERVER_DATA=/data, a configuração é salva em /data/servidor_email.json e persiste entre recriações do container.
+
+O painel Web informa se o e-mail está configurado.

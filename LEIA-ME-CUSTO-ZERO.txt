@@ -1,0 +1,26 @@
+JED SIMULADOR v2.0 RC1 — OPERAÇÃO COM CUSTO ZERO
+
+Esta versão não exige VPS, domínio, banco pago ou licença de software.
+
+MODO 1 — MESMO COMPUTADOR
+Servidor:
+http://127.0.0.1:8787
+
+MODO 2 — REDE LOCAL / LABORATÓRIO
+Execute JED_Servidor.exe em um computador que permaneça ligado.
+Nos outros computadores, use o IP local da máquina do servidor, por exemplo:
+http://192.168.0.25:8787
+
+MODO 3 — INTERNET EXTERNA
+O servidor é compatível com túnel/reverse proxy HTTPS gratuito.
+A disponibilidade e os limites desses serviços dependem do provedor.
+A RC1 não depende de nenhum deles.
+
+NÃO exponha HTTP puro diretamente à Internet.
+
+PROTEÇÕES DA RC1
+- backups locais automáticos;
+- convites expiram em 30 dias;
+- tutor pode revogar convite;
+- troca de senha pelo próprio usuário;
+- limite de tentativas de login.

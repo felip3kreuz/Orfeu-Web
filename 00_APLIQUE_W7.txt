@@ -1,0 +1,54 @@
+JED SIMULADOR RC1.8 — W7.0 DEFINITIVE WEB
+=========================================
+
+Este pacote é cumulativo sobre a W6.3 e contém frontend + servidor necessários
+para a versão Web funcional do simulador.
+
+BRANCH SUGERIDA
+rc1.8-w7.0-definitive-web
+
+COMMIT
+RC1.8 W7.0 - Web funcional completo
+
+PR TITLE
+RC1.8 W7.0 - Definitive functional Web version
+
+PR DESCRIPTION
+Atualiza o JED Web para W7.0 com paridade funcional do núcleo da simulação.
+
+- substitui navegação por âncoras por módulos funcionais
+- permite criar empreendimento no navegador
+- adiciona seleção Setor > Tipo > Especialidade pelo catálogo oficial
+- adiciona Persona e Lean Canvas editáveis
+- adiciona canais e ferramentas digitais
+- adiciona decisões semanais e processamento pelo JED Core Go/WASM
+- adiciona insumos, fornecedores, pedidos e estoque
+- adiciona financeiro, indicadores, score, histórico e Jornada JED
+- mantém entrada em turma e permite vincular a empresa atual à turma
+- adiciona criação persistente de cenários pelo Mentor
+- permite criar turmas escolhendo cenário
+- adiciona convites e importação CSV de alunos
+- adiciona acompanhamento consolidado de resultados pelo Mentor
+- preserva autenticação HttpOnly, favicon Windows e compatibilidade RC1.8
+- adiciona persistência retrocompatível de cenários no JED Servidor
+
+IMPORTANTE APÓS O MERGE
+O servidor Oracle precisa ser atualizado porque online_server.go mudou.
+
+Na VM:
+
+cd ~/JED-Simulador
+git pull --ff-only origin main
+sudo tar -czf /opt/jed/jed-data-backup-$(date +%Y%m%d-%H%M%S).tar.gz -C /opt/jed data
+sudo docker build -t jed-server .
+sudo docker rm -f jed-server
+sudo docker run -d \
+  --name jed-server \
+  --restart unless-stopped \
+  -p 127.0.0.1:8787:8787 \
+  -v /opt/jed/data:/data \
+  -e JED_SERVER_DATA=/data \
+  jed-server
+curl http://127.0.0.1:8787/health
+
+A Vercel fará o deploy da Web a partir do merge. JED_SERVER_URL permanece igual.
