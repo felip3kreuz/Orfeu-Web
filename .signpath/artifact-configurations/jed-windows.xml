@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <parameters>
+    <parameter name="version" required="true" />
+  </parameters>
+  <zip-file>
+    <pe-file-set product-name="JED Simulador"
+                 product-version="${version}"
+                 file-version="${version}">
+      <include path="JED_Simulador.exe" />
+      <include path="JED_Simulador_32bits.exe" />
+      <include path="JED_Simulador_Diagnostico.exe" />
+      <include path="JED_Servidor.exe" />
+      <include path="JED_Servidor_32bits.exe" />
+      <include path="JED_Simulador_Classic.exe" />
+      <for-each>
+        <authenticode-sign description="JED Simulador" />
+      </for-each>
+    </pe-file-set>
+  </zip-file>
+</artifact-configuration>
