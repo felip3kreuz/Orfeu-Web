@@ -54,3 +54,21 @@ export async function PUT(request) {
     return fail(error, "Falha ao sincronizar empresa.");
   }
 }
+
+// OX-78-1: remoção autenticada de empreendimento do próprio aluno.
+export async function DELETE(request) {
+  try {
+    await requireStudent();
+    const input = await request.json();
+    const localID = String(input?.local_id || "").trim();
+    if (!localID || localID.includes("/")) {
+      return NextResponse.json({ error: "Identificador de empreendimento inválido." }, { status: 400 });
+    }
+    const token = await sessionToken();
+    const result = await jedServerRequest(`/api/v1/companies/${encodeURIComponent(localID)}`, { method: "DELETE", token });
+    const response = NextResponse.json(result, { headers: { "Cache-Control": "private, no-store" } });
+    return response;
+  } catch (error) {
+    return fail(error, "Falha ao excluir empreendimento.");
+  }
+}

@@ -105,15 +105,15 @@ export default function OrfeuTutorial({ role, user }) {
     setRunning(true);
     persist(index);
   }
-  function close() { persist(stepIndex); setRunning(false); setWelcome(false); launcherRef.current?.focus(); }
+  function close() { persist(stepIndex); setRunning(false); setWelcome(false); window.dispatchEvent(new Event("orfeu:tutorial:idle")); launcherRef.current?.focus(); }
   function move(delta) {
     const next = stepIndex + delta;
-    if (next >= steps.length) { persist(steps.length, true); setRunning(false); launcherRef.current?.focus(); return; }
+    if (next >= steps.length) { persist(steps.length, true); setRunning(false); window.dispatchEvent(new Event("orfeu:tutorial:idle")); launcherRef.current?.focus(); return; }
     const index = Math.max(0, next);
     setStepIndex(index);
     persist(index);
   }
-  function dismissWelcome() { setWelcome(false); persist(stepIndex); launcherRef.current?.focus(); }
+  function dismissWelcome() { setWelcome(false); persist(stepIndex); window.dispatchEvent(new Event("orfeu:tutorial:idle")); launcherRef.current?.focus(); }
 
   useEffect(() => {
     if (!running || !steps[stepIndex]) return undefined;
@@ -163,7 +163,7 @@ export default function OrfeuTutorial({ role, user }) {
   const welcomeDialog = welcome ? (
     <div className="orfeu-tour-welcome">
       <div className="orfeu-tour-popover" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="orfeu-welcome-title">
-        <span className="orfeu-tour-count">ORFEU WEB O1.0 · TUTORIAL DO {roleNames[role].toUpperCase()}</span>
+        <span className="orfeu-tour-count">ORFEU WEB OX-78-1 · TUTORIAL DO {roleNames[role].toUpperCase()}</span>
         <h2 id="orfeu-welcome-title">Conheça seu painel</h2>
         <p>Deseja realizar uma visita guiada às funções disponíveis para o perfil {roleNames[role]}? O tutorial é ilustrativo e não modifica seus dados.</p>
         <p>Você poderá interromper, retomar ou reiniciar a qualquer momento pelo botão TUTORIAL.</p>

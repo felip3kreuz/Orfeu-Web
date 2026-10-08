@@ -47,6 +47,7 @@ export default function StudentWorkspace({ user }) {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [dialog, setDialog] = useState("");
+  const [deletePhrase, setDeletePhrase] = useState("");
   const [newCompany, setNewCompany] = useState({ sector: "", type: "", model: "", name: "", capital: 20000, difficulty: "intermediario", class_id: "", scenario_id: "base-estavel" });
   const [order, setOrder] = useState({ input_id: "", quantity: 10, supplier_id: "padrao", term: 0 });
   const [stockOrder, setStockOrder] = useState({ quantity: 10, term: 0 });
@@ -163,6 +164,31 @@ export default function StudentWorkspace({ user }) {
     finally { setBusy(false); }
   }
 
+  async function deleteSelectedCompany(event) {
+    event.preventDefault();
+    if (!selected || deletePhrase.trim().toUpperCase() !== "EXCLUIR" || busy) return;
+    const localID = String(selected.company?.local_id || "");
+    if (!localID) { setError("Empreendimento sem identificador."); return; }
+    setBusy(true); setError(""); setNotice("");
+    try {
+      const response = await fetch("/api/student/companies", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ local_id: localID }),
+      });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload?.error || "Não foi possível excluir o empreendimento.");
+      const next = companies.filter((entry) => entry.id !== selected.id);
+      setCompanies(next);
+      setSelectedID(next[0]?.id || "");
+      setDraft(next.length ? clone(next[0].company) : null);
+      setDirty(false);
+      setDialog(""); setDeletePhrase("");
+      setNotice("Empreendimento excluído do servidor. As demais empresas foram preservadas.");
+    } catch (caught) { setError(caught instanceof Error ? caught.message : "Falha ao excluir empreendimento."); }
+    finally { setBusy(false); }
+  }
+
   async function createCompany(event) {
     event.preventDefault();
     if (!catalogs) return;
@@ -234,7 +260,7 @@ export default function StudentWorkspace({ user }) {
   const last = company?.historico?.length ? company.historico[company.historico.length - 1] : null;
 
   function companyToolbar() {
-    return <div className="orbit-toolbar sticky-module-toolbar"><button type="button" className="primary-button" onClick={() => setDialog("company")}>NOVO EMPREENDIMENTO</button>{companies.length ? <CompanyPicker companies={companies} selectedID={selectedID} onChange={(id) => { if (!dirty || window.confirm("Trocar de empresa e descartar alterações não salvas?")) setSelectedID(id); }} /> : null}{company ? <button type="button" className="secondary-button" onClick={saveDraft} disabled={!dirty || busy}>{busy ? "SALVANDO…" : dirty ? "SALVAR NO SERVIDOR" : "SINCRONIZADO"}</button> : null}</div>;
+    return <div className="orbit-toolbar sticky-module-toolbar"><button type="button" className="primary-button" onClick={() => setDialog("company")}>NOVO EMPREENDIMENTO</button>{companies.length ? <CompanyPicker companies={companies} selectedID={selectedID} onChange={(id) => { if (!dirty || window.confirm("Trocar de empresa e descartar alterações não salvas?")) setSelectedID(id); }} /> : null}{company ? <button type="button" className="secondary-button" onClick={saveDraft} disabled={!dirty || busy}>{busy ? "SALVANDO…" : dirty ? "SALVAR NO SERVIDOR" : "SINCRONIZADO"}</button> : null}{company ? <button type="button" className="danger-button" disabled={busy} onClick={() => { setDeletePhrase(""); setDialog("delete-company"); }}>EXCLUIR EMPREENDIMENTO</button> : null}</div>;
   }
 
   function renderEmpresa() {
@@ -307,6 +333,15 @@ export default function StudentWorkspace({ user }) {
     {error ? <div className="workspace-alert workspace-alert-error">ERRO · {error}</div> : null}
     {notice ? <div className="workspace-alert workspace-alert-success">OK · {notice}</div> : null}
     <section id={activeView} className="module-view">{view}</section>
+
+    <Modal open={dialog === "delete-company"} title="EXCLUIR EMPREENDIMENTO" subtitle={selected?.company?.nome || "Empresa selecionada"} onClose={() => { if (!busy) { setDialog(""); setDeletePhrase(""); } }}>
+      <form className="orbit-form" onSubmit={deleteSelectedCompany}>
+        <div className="destructive-warning"><strong>EXCLUSÃO DEFINITIVA</strong><span>Você perderá o histórico das semanas simuladas, as decisões, os indicadores e eventual avaliação do Mentor desta empresa. As demais empresas serão preservadas.</span></div>
+        <label>DIGITE EXCLUIR PARA CONFIRMAR<input value={deletePhrase} autoComplete="off" onChange={(e) => setDeletePhrase(e.target.value)} /></label>
+        {error ? <div className="form-error">{error}</div> : null}
+        <div className="modal-actions"><button className="secondary-button" type="button" disabled={busy} onClick={() => { setDialog(""); setDeletePhrase(""); }}>CANCELAR</button><button className="danger-button" disabled={busy || deletePhrase.trim().toUpperCase() !== "EXCLUIR"}>{busy ? "EXCLUINDO…" : "EXCLUIR DEFINITIVAMENTE"}</button></div>
+      </form>
+    </Modal>
 
     <Modal open={dialog === "company"} title="NOVO EMPREENDIMENTO" subtitle="Catálogo oficial: Setor → Tipo → Especialidade → dados iniciais." onClose={() => setDialog("")}>
       <form className="orbit-form" onSubmit={createCompany}>

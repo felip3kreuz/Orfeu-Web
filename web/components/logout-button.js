@@ -10,6 +10,7 @@ export default function LogoutButton() {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } finally {
+      try { for (const key of Object.keys(window.sessionStorage)) if (key.startsWith("orfeu:socials:seen:")) window.sessionStorage.removeItem(key); } catch {}
       window.location.assign("/login");
     }
   }
