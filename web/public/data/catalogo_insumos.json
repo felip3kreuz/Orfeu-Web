@@ -1,0 +1,1222 @@
+{
+  "versao": "1.0",
+  "descricao": "Perfis de insumos e fornecedores do JED v0.7",
+  "fornecedores": [
+    {
+      "id": "economico",
+      "nome": "Fornecedor Econômico",
+      "multiplicador_preco": 0.92,
+      "prazo_entrega_semanas": 2,
+      "confiabilidade": 0.82,
+      "prazo_pagamento_max": 2,
+      "descricao": "Preço menor, entrega mais lenta e maior risco de atraso."
+    },
+    {
+      "id": "padrao",
+      "nome": "Fornecedor Padrão",
+      "multiplicador_preco": 1.0,
+      "prazo_entrega_semanas": 1,
+      "confiabilidade": 0.95,
+      "prazo_pagamento_max": 2,
+      "descricao": "Equilíbrio entre preço, prazo e confiabilidade."
+    },
+    {
+      "id": "local",
+      "nome": "Fornecedor Local / Expresso",
+      "multiplicador_preco": 1.12,
+      "prazo_entrega_semanas": 0,
+      "confiabilidade": 0.99,
+      "prazo_pagamento_max": 1,
+      "descricao": "Entrega imediata, porém com preço mais alto."
+    }
+  ],
+  "perfis": [
+    {
+      "modelo_id": "rest_sushi",
+      "insumos": [
+        {
+          "id": "salmao",
+          "nome": "Salmão e peixe fresco",
+          "unidade": "kg",
+          "custo_base": 42,
+          "consumo_por_venda": 0.35,
+          "estoque_inicial": 45,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "arroz",
+          "nome": "Arroz para sushi",
+          "unidade": "kg",
+          "custo_base": 8,
+          "consumo_por_venda": 0.22,
+          "estoque_inicial": 30,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "nori",
+          "nome": "Nori",
+          "unidade": "folha",
+          "custo_base": 1.2,
+          "consumo_por_venda": 1.0,
+          "estoque_inicial": 160,
+          "validade_semanas": 12,
+          "perda_semanal": 0.005,
+          "critico": true
+        },
+        {
+          "id": "hortalicas",
+          "nome": "Hortaliças e acompanhamentos",
+          "unidade": "kg",
+          "custo_base": 18,
+          "consumo_por_venda": 0.22,
+          "estoque_inicial": 35,
+          "validade_semanas": 1,
+          "perda_semanal": 0.14,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagens",
+          "unidade": "un",
+          "custo_base": 2.2,
+          "consumo_por_venda": 1.0,
+          "estoque_inicial": 160,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Molhos e outros insumos",
+          "unidade": "kit",
+          "custo_base": 6.5,
+          "consumo_por_venda": 1.0,
+          "estoque_inicial": 140,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "rest_caseiro",
+      "insumos": [
+        {
+          "id": "proteina",
+          "nome": "Carnes / proteína",
+          "unidade": "kg",
+          "custo_base": 28,
+          "consumo_por_venda": 0.3,
+          "estoque_inicial": 45,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "graos",
+          "nome": "Arroz, feijão e grãos",
+          "unidade": "kg",
+          "custo_base": 8,
+          "consumo_por_venda": 0.38,
+          "estoque_inicial": 60,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "hortalicas",
+          "nome": "Hortaliças",
+          "unidade": "kg",
+          "custo_base": 10,
+          "consumo_por_venda": 0.28,
+          "estoque_inicial": 45,
+          "validade_semanas": 1,
+          "perda_semanal": 0.14,
+          "critico": true
+        },
+        {
+          "id": "temperos",
+          "nome": "Temperos e complementos",
+          "unidade": "kit",
+          "custo_base": 2.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 5,
+          "perda_semanal": 0.02,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "rest_italiano",
+      "insumos": [
+        {
+          "id": "massa",
+          "nome": "Massas e farinha",
+          "unidade": "kg",
+          "custo_base": 13,
+          "consumo_por_venda": 0.28,
+          "estoque_inicial": 42,
+          "validade_semanas": 5,
+          "perda_semanal": 0.02,
+          "critico": true
+        },
+        {
+          "id": "proteina",
+          "nome": "Proteínas",
+          "unidade": "kg",
+          "custo_base": 32,
+          "consumo_por_venda": 0.2,
+          "estoque_inicial": 32,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "queijos",
+          "nome": "Queijos",
+          "unidade": "kg",
+          "custo_base": 38,
+          "consumo_por_venda": 0.16,
+          "estoque_inicial": 25,
+          "validade_semanas": 2,
+          "perda_semanal": 0.07,
+          "critico": true
+        },
+        {
+          "id": "molhos",
+          "nome": "Molhos e vegetais",
+          "unidade": "kg",
+          "custo_base": 18,
+          "consumo_por_venda": 0.28,
+          "estoque_inicial": 42,
+          "validade_semanas": 2,
+          "perda_semanal": 0.09,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Outros insumos",
+          "unidade": "kit",
+          "custo_base": 4.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 130,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "rest_churrascaria",
+      "insumos": [
+        {
+          "id": "carnes",
+          "nome": "Carnes",
+          "unidade": "kg",
+          "custo_base": 36,
+          "consumo_por_venda": 0.75,
+          "estoque_inicial": 100,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "acomp",
+          "nome": "Acompanhamentos",
+          "unidade": "kg",
+          "custo_base": 10,
+          "consumo_por_venda": 0.45,
+          "estoque_inicial": 70,
+          "validade_semanas": 2,
+          "perda_semanal": 0.09,
+          "critico": true
+        },
+        {
+          "id": "carvao",
+          "nome": "Carvão / energia variável",
+          "unidade": "kg",
+          "custo_base": 5,
+          "consumo_por_venda": 0.35,
+          "estoque_inicial": 60,
+          "validade_semanas": 12,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Temperos e descartáveis",
+          "unidade": "kit",
+          "custo_base": 5.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "rest_vegano",
+      "insumos": [
+        {
+          "id": "hortalicas",
+          "nome": "Hortaliças frescas",
+          "unidade": "kg",
+          "custo_base": 14,
+          "consumo_por_venda": 0.45,
+          "estoque_inicial": 65,
+          "validade_semanas": 1,
+          "perda_semanal": 0.15,
+          "critico": true
+        },
+        {
+          "id": "graos",
+          "nome": "Grãos e leguminosas",
+          "unidade": "kg",
+          "custo_base": 11,
+          "consumo_por_venda": 0.3,
+          "estoque_inicial": 45,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        },
+        {
+          "id": "proteina",
+          "nome": "Proteínas vegetais",
+          "unidade": "kg",
+          "custo_base": 24,
+          "consumo_por_venda": 0.22,
+          "estoque_inicial": 35,
+          "validade_semanas": 3,
+          "perda_semanal": 0.04,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Temperos e complementos",
+          "unidade": "kit",
+          "custo_base": 4,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 140,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "rest_selfservice",
+      "insumos": [
+        {
+          "id": "proteina",
+          "nome": "Proteínas",
+          "unidade": "kg",
+          "custo_base": 27,
+          "consumo_por_venda": 0.25,
+          "estoque_inicial": 70,
+          "validade_semanas": 1,
+          "perda_semanal": 0.11,
+          "critico": true
+        },
+        {
+          "id": "graos",
+          "nome": "Arroz, feijão e massas",
+          "unidade": "kg",
+          "custo_base": 8,
+          "consumo_por_venda": 0.35,
+          "estoque_inicial": 100,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        },
+        {
+          "id": "hortalicas",
+          "nome": "Saladas e hortaliças",
+          "unidade": "kg",
+          "custo_base": 10,
+          "consumo_por_venda": 0.3,
+          "estoque_inicial": 85,
+          "validade_semanas": 1,
+          "perda_semanal": 0.16,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Óleo, temperos e complementos",
+          "unidade": "kit",
+          "custo_base": 3.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 250,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "hamburgueria",
+      "insumos": [
+        {
+          "id": "carne",
+          "nome": "Hambúrguer / proteína",
+          "unidade": "un",
+          "custo_base": 6.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 1,
+          "perda_semanal": 0.08,
+          "critico": true
+        },
+        {
+          "id": "pao",
+          "nome": "Pães",
+          "unidade": "un",
+          "custo_base": 1.6,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 160,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "queijo",
+          "nome": "Queijo e complementos",
+          "unidade": "porção",
+          "custo_base": 2.4,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 2,
+          "perda_semanal": 0.06,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagens",
+          "unidade": "un",
+          "custo_base": 1.1,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 170,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Molhos e vegetais",
+          "unidade": "porção",
+          "custo_base": 1.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "hotdog",
+      "insumos": [
+        {
+          "id": "salsicha",
+          "nome": "Salsicha / proteína",
+          "unidade": "un",
+          "custo_base": 2.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 190,
+          "validade_semanas": 2,
+          "perda_semanal": 0.07,
+          "critico": true
+        },
+        {
+          "id": "pao",
+          "nome": "Pão",
+          "unidade": "un",
+          "custo_base": 1.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 200,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "complementos",
+          "nome": "Molhos e complementos",
+          "unidade": "porção",
+          "custo_base": 2.1,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 190,
+          "validade_semanas": 2,
+          "perda_semanal": 0.08,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagem",
+          "unidade": "un",
+          "custo_base": 0.8,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 210,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "salgaderia",
+      "insumos": [
+        {
+          "id": "massa",
+          "nome": "Massa / farinha",
+          "unidade": "porção",
+          "custo_base": 1.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 260,
+          "validade_semanas": 4,
+          "perda_semanal": 0.03,
+          "critico": true
+        },
+        {
+          "id": "recheio",
+          "nome": "Recheios",
+          "unidade": "porção",
+          "custo_base": 1.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 240,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "oleo",
+          "nome": "Óleo e insumos de cocção",
+          "unidade": "porção",
+          "custo_base": 0.45,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 280,
+          "validade_semanas": 4,
+          "perda_semanal": 0.02,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagem",
+          "unidade": "un",
+          "custo_base": 0.55,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 280,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "cafe_trad",
+      "insumos": [
+        {
+          "id": "cafe",
+          "nome": "Café",
+          "unidade": "dose",
+          "custo_base": 2.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 170,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "leite",
+          "nome": "Leite e derivados",
+          "unidade": "dose",
+          "custo_base": 1.2,
+          "consumo_por_venda": 0.65,
+          "estoque_inicial": 130,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "doces",
+          "nome": "Acompanhamentos",
+          "unidade": "porção",
+          "custo_base": 1.0,
+          "consumo_por_venda": 0.55,
+          "estoque_inicial": 120,
+          "validade_semanas": 2,
+          "perda_semanal": 0.08,
+          "critico": false
+        },
+        {
+          "id": "descartaveis",
+          "nome": "Copos / guardanapos",
+          "unidade": "kit",
+          "custo_base": 0.7,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 190,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "cafe_especial",
+      "insumos": [
+        {
+          "id": "cafe",
+          "nome": "Café especial",
+          "unidade": "dose",
+          "custo_base": 3.4,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 140,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "leite",
+          "nome": "Leite e derivados",
+          "unidade": "dose",
+          "custo_base": 1.6,
+          "consumo_por_venda": 0.65,
+          "estoque_inicial": 110,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "doces",
+          "nome": "Acompanhamentos",
+          "unidade": "porção",
+          "custo_base": 1.4,
+          "consumo_por_venda": 0.55,
+          "estoque_inicial": 100,
+          "validade_semanas": 2,
+          "perda_semanal": 0.08,
+          "critico": false
+        },
+        {
+          "id": "descartaveis",
+          "nome": "Copos / guardanapos",
+          "unidade": "kit",
+          "custo_base": 0.9,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "pad_trad",
+      "insumos": [
+        {
+          "id": "farinha",
+          "nome": "Farinha e base",
+          "unidade": "kg",
+          "custo_base": 6,
+          "consumo_por_venda": 0.22,
+          "estoque_inicial": 65,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "fermento",
+          "nome": "Fermento e aditivos",
+          "unidade": "porção",
+          "custo_base": 0.35,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 230,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "recheios",
+          "nome": "Recheios / complementos",
+          "unidade": "porção",
+          "custo_base": 1.5,
+          "consumo_por_venda": 0.7,
+          "estoque_inicial": 170,
+          "validade_semanas": 2,
+          "perda_semanal": 0.08,
+          "critico": false
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagens",
+          "unidade": "un",
+          "custo_base": 0.7,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 240,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "pad_art",
+      "insumos": [
+        {
+          "id": "farinha",
+          "nome": "Farinhas especiais",
+          "unidade": "kg",
+          "custo_base": 10,
+          "consumo_por_venda": 0.25,
+          "estoque_inicial": 50,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "fermento",
+          "nome": "Fermentação / aditivos",
+          "unidade": "porção",
+          "custo_base": 0.7,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 160,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "complementos",
+          "nome": "Sementes / complementos",
+          "unidade": "porção",
+          "custo_base": 2.2,
+          "consumo_por_venda": 0.8,
+          "estoque_inicial": 130,
+          "validade_semanas": 4,
+          "perda_semanal": 0.04,
+          "critico": false
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagens",
+          "unidade": "un",
+          "custo_base": 1.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 170,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "confeitaria",
+      "insumos": [
+        {
+          "id": "farinha",
+          "nome": "Farinha / base",
+          "unidade": "kg",
+          "custo_base": 7,
+          "consumo_por_venda": 0.12,
+          "estoque_inicial": 38,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "laticinios",
+          "nome": "Leite, manteiga e creme",
+          "unidade": "porção",
+          "custo_base": 1.8,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 170,
+          "validade_semanas": 1,
+          "perda_semanal": 0.11,
+          "critico": true
+        },
+        {
+          "id": "acucar",
+          "nome": "Açúcar / chocolate",
+          "unidade": "porção",
+          "custo_base": 1.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 190,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagens",
+          "unidade": "un",
+          "custo_base": 0.9,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 200,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "sorveteria",
+      "insumos": [
+        {
+          "id": "sorvete",
+          "nome": "Sorvete / base congelada",
+          "unidade": "porção",
+          "custo_base": 3.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 200,
+          "validade_semanas": 8,
+          "perda_semanal": 0.01,
+          "critico": true
+        },
+        {
+          "id": "complementos",
+          "nome": "Coberturas / complementos",
+          "unidade": "porção",
+          "custo_base": 1.3,
+          "consumo_por_venda": 0.7,
+          "estoque_inicial": 160,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": false
+        },
+        {
+          "id": "embalagem",
+          "nome": "Copo / casquinha",
+          "unidade": "un",
+          "custo_base": 1.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 220,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "acaiteria",
+      "insumos": [
+        {
+          "id": "acai",
+          "nome": "Açaí",
+          "unidade": "porção",
+          "custo_base": 4.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 220,
+          "validade_semanas": 6,
+          "perda_semanal": 0.015,
+          "critico": true
+        },
+        {
+          "id": "frutas",
+          "nome": "Frutas",
+          "unidade": "porção",
+          "custo_base": 2.0,
+          "consumo_por_venda": 0.65,
+          "estoque_inicial": 150,
+          "validade_semanas": 1,
+          "perda_semanal": 0.14,
+          "critico": false
+        },
+        {
+          "id": "complementos",
+          "nome": "Granola / complementos",
+          "unidade": "porção",
+          "custo_base": 1.1,
+          "consumo_por_venda": 0.75,
+          "estoque_inicial": 190,
+          "validade_semanas": 5,
+          "perda_semanal": 0.02,
+          "critico": false
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagem",
+          "unidade": "un",
+          "custo_base": 0.9,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 230,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "marmitaria",
+      "insumos": [
+        {
+          "id": "proteina",
+          "nome": "Proteína",
+          "unidade": "porção",
+          "custo_base": 4.8,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 200,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "graos",
+          "nome": "Arroz / feijão / massa",
+          "unidade": "porção",
+          "custo_base": 2.1,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 220,
+          "validade_semanas": 5,
+          "perda_semanal": 0.02,
+          "critico": true
+        },
+        {
+          "id": "hortalicas",
+          "nome": "Hortaliças",
+          "unidade": "porção",
+          "custo_base": 1.4,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 180,
+          "validade_semanas": 1,
+          "perda_semanal": 0.14,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Marmita / embalagem",
+          "unidade": "un",
+          "custo_base": 1.7,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 230,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "pizzaria",
+      "insumos": [
+        {
+          "id": "massa",
+          "nome": "Massa",
+          "unidade": "un",
+          "custo_base": 3.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 130,
+          "validade_semanas": 2,
+          "perda_semanal": 0.06,
+          "critico": true
+        },
+        {
+          "id": "queijo",
+          "nome": "Queijo",
+          "unidade": "porção",
+          "custo_base": 6.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 120,
+          "validade_semanas": 2,
+          "perda_semanal": 0.07,
+          "critico": true
+        },
+        {
+          "id": "recheio",
+          "nome": "Recheios",
+          "unidade": "porção",
+          "custo_base": 6.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 120,
+          "validade_semanas": 2,
+          "perda_semanal": 0.08,
+          "critico": true
+        },
+        {
+          "id": "molho",
+          "nome": "Molho",
+          "unidade": "porção",
+          "custo_base": 1.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 140,
+          "validade_semanas": 3,
+          "perda_semanal": 0.04,
+          "critico": true
+        },
+        {
+          "id": "caixa",
+          "nome": "Caixa de pizza",
+          "unidade": "un",
+          "custo_base": 1.4,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "foodtruck",
+      "insumos": [
+        {
+          "id": "proteina",
+          "nome": "Proteína principal",
+          "unidade": "porção",
+          "custo_base": 5.5,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 120,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "base",
+          "nome": "Pão / massa / base",
+          "unidade": "porção",
+          "custo_base": 2.3,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 130,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "complementos",
+          "nome": "Complementos",
+          "unidade": "porção",
+          "custo_base": 2.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 120,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagem",
+          "unidade": "un",
+          "custo_base": 1.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 140,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "buffet",
+      "insumos": [
+        {
+          "id": "proteinas",
+          "nome": "Proteínas",
+          "unidade": "porção",
+          "custo_base": 320,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 15,
+          "validade_semanas": 1,
+          "perda_semanal": 0.1,
+          "critico": true
+        },
+        {
+          "id": "acomp",
+          "nome": "Acompanhamentos",
+          "unidade": "porção",
+          "custo_base": 220,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 15,
+          "validade_semanas": 1,
+          "perda_semanal": 0.12,
+          "critico": true
+        },
+        {
+          "id": "bebidas",
+          "nome": "Bebidas e descartáveis",
+          "unidade": "lote",
+          "custo_base": 150,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 15,
+          "validade_semanas": 4,
+          "perda_semanal": 0.03,
+          "critico": true
+        },
+        {
+          "id": "outros",
+          "nome": "Outros insumos do evento",
+          "unidade": "lote",
+          "custo_base": 90,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 15,
+          "validade_semanas": 6,
+          "perda_semanal": 0.02,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "velas",
+      "insumos": [
+        {
+          "id": "cera",
+          "nome": "Cera",
+          "unidade": "kg",
+          "custo_base": 22,
+          "consumo_por_venda": 0.35,
+          "estoque_inicial": 35,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "essencia",
+          "nome": "Essência",
+          "unidade": "dose",
+          "custo_base": 3.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 100,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "pavio",
+          "nome": "Pavio",
+          "unidade": "un",
+          "custo_base": 0.7,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 120,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "recipiente",
+          "nome": "Recipiente / embalagem",
+          "unidade": "un",
+          "custo_base": 4.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 110,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "sabonetes",
+      "insumos": [
+        {
+          "id": "base",
+          "nome": "Base glicerinada",
+          "unidade": "kg",
+          "custo_base": 20,
+          "consumo_por_venda": 0.18,
+          "estoque_inicial": 30,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "essencia",
+          "nome": "Essência / corante",
+          "unidade": "dose",
+          "custo_base": 1.2,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 140,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagem",
+          "unidade": "un",
+          "custo_base": 1.0,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 150,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "roupas_autorais",
+      "insumos": [
+        {
+          "id": "tecido",
+          "nome": "Tecido",
+          "unidade": "m",
+          "custo_base": 24,
+          "consumo_por_venda": 1.8,
+          "estoque_inicial": 90,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "aviamentos",
+          "nome": "Aviamentos",
+          "unidade": "kit",
+          "custo_base": 8,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 70,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "embalagem",
+          "nome": "Embalagem",
+          "unidade": "un",
+          "custo_base": 3,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 70,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        }
+      ]
+    },
+    {
+      "modelo_id": "moveis",
+      "insumos": [
+        {
+          "id": "madeira",
+          "nome": "Madeira / chapas",
+          "unidade": "lote",
+          "custo_base": 430,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 18,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "ferragens",
+          "nome": "Ferragens",
+          "unidade": "kit",
+          "custo_base": 160,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 18,
+          "validade_semanas": 24,
+          "perda_semanal": 0,
+          "critico": true
+        },
+        {
+          "id": "acabamento",
+          "nome": "Acabamento",
+          "unidade": "kit",
+          "custo_base": 90,
+          "consumo_por_venda": 1,
+          "estoque_inicial": 18,
+          "validade_semanas": 12,
+          "perda_semanal": 0.01,
+          "critico": true
+        }
+      ]
+    }
+  ]
+}
