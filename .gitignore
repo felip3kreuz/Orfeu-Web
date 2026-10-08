@@ -1,0 +1,39 @@
+# Go / build
+*.exe
+*.dll
+*.syso
+*.test
+*.out
+dist/
+build/
+
+# Pacotes
+*.zip
+
+# Dados locais do simulador
+dados/
+relatorios/
+servidor_dados/
+backups/
+*.bak
+conexao_online.json
+
+# Segredos e ambiente
+.env
+.env.*
+!.env.example
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Segredo SMTP local do servidor
+servidor_email.json
+
+# Web / Next.js
+web/node_modules/
+web/.next/
+web/public/wasm/
+*.tsbuildinfo
